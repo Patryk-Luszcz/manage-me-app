@@ -1,0 +1,20 @@
+<form class="form" [formGroup]="loginForm" (ngSubmit)="login()">
+  <h1 class="text-center">Login to</h1>
+  <span class="text-uppercase">ManageMe App</span>
+  <mat-form-field class="field" appearance="fill">
+    <mat-label>Enter your login</mat-label>
+    <input type="login" matInput formControlName="login" placeholder="Ex. pat@example.com" />
+    <mat-error *ngIf="loginForm.controls['login'].hasError('required')" class="error">
+      Please enter a valid login address
+    </mat-error>
+  </mat-form-field>
+  <mat-form-field class="field" appearance="fill">
+    <mat-label>Enter your password</mat-label>
+    <input matInput formControlName="password" />
+    <mat-error class="error"> Password should be min. 6 characters long </mat-error>
+  </mat-form-field>
+  <a class="create" [routerLink]="'/registration'"> Sign up here!</a>
+  <div class="example-button-row">
+    <button mat-raised-button type="submit" class="button">SIGN IN</button>
+  </div>
+</form>

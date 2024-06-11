@@ -1,0 +1,34 @@
+<form class="form" [formGroup]="registrationForm" (ngSubmit)="registration()">
+  <h1 class="text-center">Register To</h1>
+  <span class="text-uppercase">ManageMe App</span>
+  <mat-form-field class="field">
+    <mat-label>First Name</mat-label>
+    <input matInput formControlName="firstName" />
+    <mat-error class="error"> First Name is required </mat-error>
+  </mat-form-field>
+  <mat-form-field class="field">
+    <mat-label>Last Name</mat-label>
+    <input matInput formControlName="lastName" />
+    <mat-error class="error"> Last Name is required </mat-error>
+  </mat-form-field>
+  <mat-form-field class="field" appearance="fill">
+    <mat-label>Email</mat-label>
+    <input
+      type="email"
+      matInput
+      required
+      placeholder="Ex. pat@example.com"
+      formControlName="login"
+    />
+    <mat-error class="error">Login is required</mat-error>
+    <mat-error class="error"> Please enter a valid login address </mat-error>
+  </mat-form-field>
+  <mat-form-field class="field">
+    <mat-label>Password</mat-label>
+    <input type="password" matInput required formControlName="password" />
+    <mat-error class="error"> New Password is required </mat-error>
+  </mat-form-field>
+  <div class="example-button-row">
+    <button mat-raised-button type="submit" color="warn" class="button">SIGN UP</button>
+  </div>
+</form>

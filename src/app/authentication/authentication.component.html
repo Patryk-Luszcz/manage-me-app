@@ -1,1 +1,7 @@
-<p>authentication works!</p>
+<div class="wrapper">
+  @if (isLoginPath){
+  <app-login (signIn)="onAuthentication($event)"></app-login>
+  } @else {
+  <app-registration *ngIf="!isLoginPath" (signUp)="onAuthentication($event)"></app-registration>
+  }
+</div>
