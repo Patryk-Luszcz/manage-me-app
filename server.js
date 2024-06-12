@@ -51,6 +51,7 @@ server.post('/users/register', (req, res) => {
     lastName: newUser.lastName,
     login: newUser.login,
     authorizationToken: authorizationToken,
+    password: newUser.password,
     role: {
       name: 'developer',
     },
