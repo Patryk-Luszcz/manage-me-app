@@ -1,0 +1,9 @@
+.layout {
+  display: grid;
+  grid-template-rows: 65px 1fr;
+  height: 100vh;
+
+  &__navbar {
+    background-color: var(--color-secondary);
+  }
+}
