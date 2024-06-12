@@ -1,0 +1,24 @@
+<header class="header">
+  <div>
+    <p>ManageMe App</p>
+  </div>
+  <nav class="nav">
+    <ul class="nav__tabs">
+      <li class="nav__tabs--link" [routerLink]="['/authorized-user/projects']">
+        <a>Projects</a>
+      </li>
+      <li class="nav__tabs--link" [routerLink]="['/authorized-user/functionalities']">
+        <a>Functionalities List</a>
+      </li>
+      <li class="nav__tabs--link" [routerLink]="['/authorized-user/tasks']">
+        <a>Tasks</a>
+      </li>
+      <li class="nav__tabs--link" [routerLink]="['/admin']">
+        <a>Admin Panel</a>
+      </li>
+      <a *ngIf="authorizationToken" [routerLink]="['/authorized-user/login']" (click)="signOut()"
+        ><button class="nav__tabs--button">Sign Out</button></a
+      >
+    </ul>
+  </nav>
+</header>
