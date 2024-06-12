@@ -40,6 +40,9 @@ export class AuthenticationComponent implements OnInit {
   }
 
   public onAuthentication({ form, endpointUrl }: any) {
-    this._authenticationService.authentication(endpointUrl, form).subscribe();
+    this._authenticationService.authentication(endpointUrl, form).subscribe({
+      next: () => this._router.navigate(['/authorized-user']),
+      error: (error: any) => console.log(error),
+    });
   }
 }
