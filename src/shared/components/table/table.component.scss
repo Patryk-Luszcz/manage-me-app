@@ -1,0 +1,46 @@
+table {
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  box-shadow: 0 0 15px #ccc;
+  border-radius: 10px 10px 0 0;
+}
+
+thead {
+  display: grid;
+  grid-template-columns: 75px repeat(var(--number-of-columns), 1fr) 150px;
+  width: 100%;
+  border-bottom: 1px solid #ccc;
+}
+
+th {
+  padding: 10px 15px;
+}
+
+tr {
+  display: grid;
+  grid-template-columns: 75px 1fr 1fr 150px;
+  border-bottom: 1px solid #ccc;
+}
+
+td {
+  display: flex;
+  align-items: center;
+  padding: 10px 15px;
+}
+
+td:first-child,
+td:last-child {
+  justify-content: center;
+}
+
+tr:last-child {
+  border: none;
+}
+
+.btn {
+  margin: 0 5px;
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+}

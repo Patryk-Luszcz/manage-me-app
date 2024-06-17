@@ -1,0 +1,32 @@
+<table>
+  <thead [style.--number-of-columns]="tableConfig().length">
+    <th>No.</th>
+    @for(item of tableConfig();track $index){
+    <th>{{ item.title }}</th>
+    }
+    <th>Actions</th>
+  </thead>
+  <tbody>
+    @for(row of tableData(); track row.id; let index = $index){
+    <tr>
+      <td>{{ index }}</td>
+      @for(item of tableConfig(); track $index){
+      <td>
+        {{ row[item.modelProp] }}
+      </td>
+      }
+      <td>
+        <button class="btn" matTooltip="More Info">
+          <img src="/icons/info.svg" />
+        </button>
+        <button class="btn" matTooltip="Edit">
+          <img src="/icons/edit.svg" />
+        </button>
+        <button class="btn" matTooltip="Delete">
+          <img src="/icons/delete.svg" />
+        </button>
+      </td>
+    </tr>
+    }
+  </tbody>
+</table>
