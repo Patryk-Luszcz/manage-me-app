@@ -1,6 +1,6 @@
 <header class="header">
   <div>
-    <p>ManageMe App</p>
+    <p>ManageMe</p>
   </div>
   <nav class="nav">
     <ul class="nav__tabs">
@@ -16,7 +16,7 @@
       <li class="nav__tabs--link" [routerLink]="['/authorized-user/admin']">
         <a>Admin Panel</a>
       </li>
-      <a *ngIf="authorizationToken" [routerLink]="['/authorized-user/login']" (click)="signOut()"
+      <a *ngIf="authorizationToken" [routerLink]="['/login']" (click)="signOut()"
         ><button class="nav__tabs--button">Sign Out</button></a
       >
     </ul>

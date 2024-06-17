@@ -1,10 +1,10 @@
 import { NgIf } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { RouterLink } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 
 @Component({
-  selector: 'app-navbar',
+  selector: 'shared-navbar',
   standalone: true,
   imports: [RouterLink, NgIf],
   templateUrl: './navbar.component.html',
@@ -14,17 +14,15 @@ export class NavbarComponent {
   authorizationToken!: boolean;
   userLogin!: any;
 
-  constructor(private _cookieService: CookieService) {}
+  private _cookieService = inject(CookieService);
 
-  public ngOnInit(): void {
+  public ngOnInit() {
     this.authorizationToken = this._cookieService.get('AuthorizationToken') ? true : false;
     this.userLogin = JSON.parse(window.localStorage.getItem('UserInfo') || '{}');
   }
 
-  public signOut(): void {
-    window.localStorage.removeItem('user');
-    window.localStorage.removeItem('order');
-
+  public signOut() {
+    window.localStorage.removeItem('UserInfo');
     this._cookieService.delete('AuthorizationToken');
 
     setTimeout(() => {
