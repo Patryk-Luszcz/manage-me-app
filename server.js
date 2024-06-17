@@ -71,6 +71,16 @@ server.get('/projects', (_, res) => {
   }
 });
 
+// ADMIN PANEL
+
+server.get('/users', (_, res) => {
+  const users = router.db.get('users').value();
+
+  if (users.length > 0) {
+    res.status(200).jsonp(users);
+  }
+});
+
 // PORT LISTENER
 
 server.use(router);
