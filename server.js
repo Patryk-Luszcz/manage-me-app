@@ -61,6 +61,16 @@ server.post('/users/register', (req, res) => {
   res.status(201).json(userWithId);
 });
 
+// PROJECTS
+
+server.get('/projects', (_, res) => {
+  const projects = router.db.get('projects').value();
+
+  if (projects.length > 0) {
+    res.status(200).jsonp(projects);
+  }
+});
+
 // PORT LISTENER
 
 server.use(router);
