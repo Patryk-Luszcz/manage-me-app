@@ -19,13 +19,14 @@ th {
 
 tr {
   display: grid;
-  grid-template-columns: 75px 1fr 1fr 150px;
+  grid-template-columns: 75px repeat(var(--number-of-columns), 1fr) 150px;
   border-bottom: 1px solid #ccc;
 }
 
 td {
   display: flex;
   align-items: center;
+  justify-content: center;
   padding: 10px 15px;
 }
 

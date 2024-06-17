@@ -1,1 +1,5 @@
-<p>admin works!</p>
+<shared-table
+  class="table-container"
+  [tableData]="users$ | async"
+  [tableConfig]="userTableConfig"
+></shared-table>

@@ -1,9 +1,10 @@
-import { Component, input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, input } from '@angular/core';
 import { MatTooltipModule } from '@angular/material/tooltip';
 
 export interface TableConfig<T extends Record<any, any>> {
   title: string;
   modelProp: keyof T;
+  computeValue?: (value: T) => string;
 }
 
 @Component({
@@ -12,6 +13,7 @@ export interface TableConfig<T extends Record<any, any>> {
   imports: [MatTooltipModule],
   templateUrl: './table.component.html',
   styleUrl: './table.component.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class TableComponent<T extends { id: string }> {
   tableData = input.required<T[]>();
