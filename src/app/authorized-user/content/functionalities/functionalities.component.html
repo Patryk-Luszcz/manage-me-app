@@ -1,1 +1,5 @@
-<p>functionalities works!</p>
+<shared-table
+  class="table-container"
+  [tableData]="functionalities$ | async"
+  [tableConfig]="functionalityTableConfig"
+></shared-table>

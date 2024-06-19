@@ -9,7 +9,7 @@
   <tbody>
     @for(row of tableData(); track row.id; let index = $index){
     <tr [style.--number-of-columns]="tableConfig().length">
-      <td>{{ index }}</td>
+      <td>{{ index + 1 }}</td>
       @for(item of tableConfig(); track $index){
       <td>
         @if(item.computeValue){
