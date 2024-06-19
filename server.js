@@ -71,6 +71,13 @@ server.get('/projects', (_, res) => {
   }
 });
 
+// FUNCTIONALITIES
+
+server.get('/functionalities', (req, res) => {
+  const functionalities = router.db.get('functionalities').value();
+  res.status(200).jsonp(functionalities);
+});
+
 // ADMIN PANEL
 
 server.get('/users', (_, res) => {
