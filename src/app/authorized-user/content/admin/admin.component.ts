@@ -1,7 +1,6 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { TableComponent, TableConfig } from '../../../../shared/components/table/table.component';
 import { AsyncPipe } from '@angular/common';
-import { Observable } from 'rxjs';
 import { User } from '../../../../shared/interfaces/user.interface';
 import { UserService } from '../../../../shared/services/user.service';
 
@@ -12,10 +11,10 @@ import { UserService } from '../../../../shared/services/user.service';
   templateUrl: './admin.component.html',
   styleUrl: './admin.component.scss',
 })
-export class AdminComponent implements OnInit {
-  users$!: Observable<User[]>;
-
+export class AdminComponent {
   private _userService = inject(UserService);
+
+  users$ = this._userService.getUsers();
 
   userTableConfig: TableConfig<User>[] = [
     {
@@ -37,7 +36,4 @@ export class AdminComponent implements OnInit {
     },
   ];
 
-  public ngOnInit() {
-    this.users$ = this._userService.getUsers();
-  }
 }
