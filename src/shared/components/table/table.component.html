@@ -21,7 +21,7 @@
       }
       <td>
         @for(action of actionsConfig; track $index){
-        <button class="btn" [matTooltip]="action.tooltip" (click)="handleClick(action.title)">
+        <button class="btn" [matTooltip]="action.tooltip" (click)="handleClick(action.type)">
           <img [src]="action.iconSrc" />
         </button>
         }

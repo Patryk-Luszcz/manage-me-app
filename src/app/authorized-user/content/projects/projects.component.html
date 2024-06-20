@@ -2,5 +2,5 @@
   class="table-container"
   [tableData]="projects$ | async"
   [tableConfig]="tableConfig"
-  (emitEvent)="handleClick($event)"
+  (emitEvent)="handleOperationType($event)"
 ></shared-table>

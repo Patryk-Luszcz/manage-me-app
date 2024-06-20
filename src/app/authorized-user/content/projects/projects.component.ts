@@ -25,12 +25,11 @@ export class ProjectsComponent {
     },
   ];
 
-
   private _projectService = inject(ProjectService);
 
   projects$: Observable<Project[]> = this._projectService.getProjects();
 
-  public handleClick(event$: any) {
+  public handleOperationType(event$: any) {
     console.log(event$);
   }
 }

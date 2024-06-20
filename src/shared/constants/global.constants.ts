@@ -1,17 +1,17 @@
 export abstract class GlobalConstants {
   static readonly actionsConfig = [
     {
-      title: 'INFO',
+      type: 'INFO',
       iconSrc: '/icons/info.svg',
       tooltip: 'More Info',
     },
     {
-      title: 'EDIT',
+      type: 'EDIT',
       iconSrc: '/icons/edit.svg',
       tooltip: 'Edit',
     },
     {
-      title: 'DELETE',
+      type: 'DELETE',
       iconSrc: '/icons/delete.svg',
       tooltip: 'Delete',
     },
