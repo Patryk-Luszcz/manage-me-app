@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { ProjectService } from '../../../../shared/services/project.service';
 import { AsyncPipe, NgFor } from '@angular/common';
 import { Observable } from 'rxjs';
@@ -13,9 +13,7 @@ import { TableConfig } from '../../../../shared/components/table/table.component
   templateUrl: './projects.component.html',
   styleUrl: './projects.component.scss',
 })
-export class ProjectsComponent implements OnInit {
-  projects$!: Observable<Project[]>;
-
+export class ProjectsComponent {
   tableConfig: TableConfig<Project>[] = [
     {
       title: 'Name',
@@ -27,9 +25,12 @@ export class ProjectsComponent implements OnInit {
     },
   ];
 
+
   private _projectService = inject(ProjectService);
 
-  public ngOnInit() {
-    this.projects$ = this._projectService.getProjects();
+  projects$: Observable<Project[]> = this._projectService.getProjects();
+
+  public handleClick(event$: any) {
+    console.log(event$);
   }
 }

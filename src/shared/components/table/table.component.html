@@ -14,21 +14,17 @@
       <td>
         @if(item.computeValue){
         {{ item.computeValue(row) }}
-        }@else {
+        } @else {
         {{ row[item.modelProp] }}
         }
       </td>
       }
       <td>
-        <button class="btn" matTooltip="More Info">
-          <img src="/icons/info.svg" />
+        @for(action of actionsConfig; track $index){
+        <button class="btn" [matTooltip]="action.tooltip" (click)="handleClick(action.title)">
+          <img [src]="action.iconSrc" />
         </button>
-        <button class="btn" matTooltip="Edit">
-          <img src="/icons/edit.svg" />
-        </button>
-        <button class="btn" matTooltip="Delete">
-          <img src="/icons/delete.svg" />
-        </button>
+        }
       </td>
     </tr>
     }
