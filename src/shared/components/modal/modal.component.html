@@ -1,0 +1,18 @@
+<div class="modal">
+  <div class="modal__header">
+    <h3>{{ modalTitle() }}</h3>
+  </div>
+  <div class="modal__body">
+    <ng-content></ng-content>
+  </div>
+  <div class="modal__footer">
+    @if(isFooterVisible()){
+    <button class="btn-actions-icon" matTooltip="Cancel" (click)="cancelModal()">
+      <img src="/icons/close.svg" />
+    </button>
+    <button class="btn-actions-icon" matTooltip="Confirm" (click)="confirmModal()">
+      <img src="/icons/confirm.svg" />
+    </button>
+    }
+  </div>
+</div>
