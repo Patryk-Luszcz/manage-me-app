@@ -1,0 +1,21 @@
+.form {
+  display: flex;
+  justify-content: space-evenly;
+  width: 100%;
+  padding: 40px 40px 0;
+
+  &__title {
+    text-align: center;
+    margin-bottom: 25px;
+  }
+}
+
+textarea {
+  resize: vertical;
+  max-height: 30px;
+}
+
+mat-form-field {
+  font-size: 1rem;
+  margin: 0 10px;
+}
