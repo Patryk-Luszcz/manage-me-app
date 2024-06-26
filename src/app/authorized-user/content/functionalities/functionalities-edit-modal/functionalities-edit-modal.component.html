@@ -1,0 +1,47 @@
+<shared-modal [modalTitle]="modalData.title">
+  <form class="wrapper" [formGroup]="functionalityForm">
+    <div class="first-column">
+      <mat-form-field class="field">
+        <mat-label>Functionality Name</mat-label>
+        <input type="text" matInput formControlName="name" />
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Project Name</mat-label>
+        <input type="text" matInput formControlName="project" />
+      </mat-form-field>
+    </div>
+    <div class="second-column">
+      <mat-form-field class="field">
+        <mat-label>Status</mat-label>
+        <mat-select formControlName="status">
+          @for(status of statuses; track status.id; let index = $index){
+          <mat-option [value]="status.value">{{ status.value }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Owner</mat-label>
+        <input type="text" matInput formControlName="owner" />
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          @for(priority of priorities; track priority.id; let index = $index){
+          <mat-option [value]="priority.value">{{ priority.value }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="third-column">
+      <mat-form-field style="width: 94%; margin: 0 20px">
+        <mat-label>Description</mat-label>
+        <textarea
+          class="textarea"
+          matInput
+          formControlName="description"
+          placeholder="Description"
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</shared-modal>
