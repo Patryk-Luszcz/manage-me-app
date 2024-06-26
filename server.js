@@ -71,6 +71,45 @@ server.get('/projects', (_, res) => {
   }
 });
 
+server.get('/projects/active', (_, res) => {
+  const projects = router.db.get('projects').value();
+
+  if (projects.length > 0) {
+    const activeProject = projects.filter((project) => project.active === true);
+
+    res.status(200).jsonp(activeProject[0]);
+  }
+});
+
+server.post('/projects', (req, res) => {
+  const { name, description } = req.body;
+
+  const projects = router.db.get('projects');
+  const lastProject = projects.value()[projects.size() - 1];
+  const newId = lastProject ? lastProject.id + 1 : 1;
+
+  const newProject = {
+    id: newId,
+    name,
+    description,
+    active: false,
+  };
+
+  projects.push(newProject).write();
+
+  res.status(200).jsonp(newProject);
+});
+
+server.put('/projects', (req, res) => {
+  const { id, name, description } = req.body;
+
+  router.db.get('projects').find({ id: id }).assign({ name, description }).write();
+
+  const updatedProject = router.db.get('projects').find({ id: id }).value();
+
+  res.status(200).jsonp(updatedProject);
+});
+
 // FUNCTIONALITIES
 
 server.get('/functionalities', (req, res) => {

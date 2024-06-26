@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { ModalComponent } from '../../../../../shared/components/modal/modal.component';
+import { ModalComponent } from '../../../../../shared/components/modals/modal/modal.component';
 import { MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({

@@ -20,11 +20,11 @@ export class TableComponent<T extends { id: string }> {
   tableData = input.required<T[]>();
   tableConfig = input.required<TableConfig<T>[]>();
 
-  emitEvent = output<string>();
+  emitEvent = output<{ actionType: string; item: T }>();
 
   actionsConfig = GlobalConstants.actionsConfig;
 
-  public handleClick(type: string) {
-    this.emitEvent.emit(type);
+  public handleClick(type: string, item: T) {
+    this.emitEvent.emit({ actionType: type, item: item });
   }
 }
