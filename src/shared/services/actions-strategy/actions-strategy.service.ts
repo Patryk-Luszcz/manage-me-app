@@ -16,6 +16,7 @@ export class ActionsStrategyService {
       ADD_PROJECT: ProjectsEditModalComponent,
       INFO_FUNCTIONALITY: FunctionalitiesViewModalComponent,
       EDIT_FUNCTIONALITY: FunctionalitiesEditModalComponent,
+      ADD_FUNCTIONALITY: FunctionalitiesEditModalComponent,
     };
 
     return services[operationType] ?? ConfirmationModalComponent;

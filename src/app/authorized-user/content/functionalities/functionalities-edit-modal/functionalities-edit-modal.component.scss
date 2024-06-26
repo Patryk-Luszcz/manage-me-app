@@ -3,6 +3,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  margin: 10px;
 }
 
 .text-center {
@@ -25,10 +26,11 @@
 .second-column {
   display: flex;
   flex-wrap: nowrap;
-  width: 98%;
-}
-
-.third-column {
   width: 100%;
 }
 
+.third-column {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+}

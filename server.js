@@ -117,6 +117,44 @@ server.get('/functionalities', (req, res) => {
   res.status(200).jsonp(functionalities);
 });
 
+server.post('/functionalities', (req, res) => {
+  const { projectId, name, description, status, project, owner, priority } = req.body;
+
+  const functionalities = router.db.get('functionalities');
+  const lastFunctionality = functionalities.value()[functionalities.size() - 1];
+  const newId = lastFunctionality ? lastFunctionality.id + 1 : 1;
+
+  const newFunctionality = {
+    id: newId,
+    projectId,
+    name,
+    description,
+    status,
+    project,
+    owner,
+    priority,
+    tasks: [],
+  };
+
+  functionalities.push(newFunctionality).write();
+
+  res.status(200).jsonp(newFunctionality);
+});
+
+server.put('/functionalities', (req, res) => {
+  const { id, name, description, status, owner, priority } = req.body;
+
+  router.db
+    .get('functionalities')
+    .find({ id: id })
+    .assign({ name, description, status, owner, priority })
+    .write();
+
+  const updatedFunctionality = router.db.get('functionalities').find({ id: id }).value();
+
+  res.status(200).jsonp(updatedFunctionality);
+});
+
 // ADMIN PANEL
 
 server.get('/users', (_, res) => {

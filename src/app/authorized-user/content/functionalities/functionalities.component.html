@@ -1,5 +1,21 @@
-<shared-table
-  class="table-container"
-  [tableData]="functionalities$ | async"
-  [tableConfig]="functionalityTableConfig"
-></shared-table>
+<div class="wrapper">
+  <div class="table-container">
+    <div class="project-title">
+      <p>
+        Current Project: <span>{{ activeProject()?.name }}</span>
+      </p>
+      <button
+        class="add-icon"
+        matTooltip="Add New Functionality"
+        (click)="handleOperationType({ actionType: 'ADD' })"
+      >
+        <img src="/icons/add.svg" alt="add task" />
+      </button>
+    </div>
+    <shared-table
+      [tableData]="functionalities$ | async"
+      [tableConfig]="functionalityTableConfig"
+      (emitEvent)="handleOperationType($event)"
+    ></shared-table>
+  </div>
+</div>
