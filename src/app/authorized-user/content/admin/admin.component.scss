@@ -1,6 +1,33 @@
-.table-container {
+.wrapper {
   display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
   height: 100%;
+}
+
+.table-container {
+  width: 60%;
+}
+
+.project-title {
+  display: flex;
+  justify-content: space-between;
+  padding: 15px 0;
+  width: 100%;
+  font-weight: 550;
+}
+
+p {
+  font-weight: 550;
+}
+
+span {
+  font-weight: normal;
+}
+
+.add-icon {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
 }
