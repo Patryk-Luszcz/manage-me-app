@@ -24,8 +24,6 @@ export class ProjectService {
   }
 
   public createProject(project: Project): Observable<Project> {
-    console.log(project);
-
     return this._httpClient.post<Project>(`${this._url}/projects`, project);
   }
 

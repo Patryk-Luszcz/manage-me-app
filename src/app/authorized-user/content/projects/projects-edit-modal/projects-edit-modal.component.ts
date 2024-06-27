@@ -48,8 +48,8 @@ export class ProjectsEditModalComponent implements OnInit {
     console.log(this.modalData.project);
 
     if (this.modalData.project) {
-      payload['id'] = this.modalData.project.id;
-      payload['active'] = this.modalData.project.active;
+      payload.id = this.modalData.project.id;
+      payload.active = this.modalData.project.active;
     }
 
     this._modalRef.close(payload);
