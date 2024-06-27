@@ -1,9 +1,9 @@
 import { CdkDragDrop, moveItemInArray, transferArrayItem } from '@angular/cdk/drag-drop';
-import { Component } from '@angular/core';
-import { Functionality } from '../../../../shared/interfaces/functionality.inteface';
+import { Component, inject } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { DragDropModule } from '@angular/cdk/drag-drop';
 import { NgFor } from '@angular/common';
+import { FunctionalityService } from '../../../../shared/services/functionality.service';
 
 @Component({
   selector: 'app-tasks',
@@ -17,7 +17,8 @@ export class TasksComponent {
   inProgressTasks: any[] = [];
   doneTasks: any[] = [];
 
-  functionalities!: Functionality[];
+  private _functionalityService = inject(FunctionalityService);
+  functionalities$ = this._functionalityService.getFunctionalities().pipe();
 
   projectName!: string;
   projectId!: number;

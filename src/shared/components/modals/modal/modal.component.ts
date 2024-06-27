@@ -1,11 +1,12 @@
 import { Component, inject, input, output } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
 import { MatTooltip } from '@angular/material/tooltip';
+import { SanitizeTitlePipe } from '../../../pipes/sanitize-title.pipe';
 
 @Component({
   selector: 'shared-modal',
   standalone: true,
-  imports: [MatTooltip],
+  imports: [MatTooltip, SanitizeTitlePipe],
   templateUrl: './modal.component.html',
   styleUrl: './modal.component.scss',
 })

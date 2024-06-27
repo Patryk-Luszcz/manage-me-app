@@ -1,6 +1,6 @@
 <div class="modal">
   <div class="modal__header">
-    <h3>{{ modalTitle() }}</h3>
+    <h3>{{ modalTitle() | sanitizeTitle }}</h3>
   </div>
   <div class="modal__body">
     <ng-content></ng-content>
