@@ -165,6 +165,22 @@ server.get('/users', (_, res) => {
   }
 });
 
+server.put('/users', (req, res) => {
+  const { id, firstName, lastName, login, role } = req.body;
+
+  const name = `${firstName} ${lastName}`;
+
+  router.db
+    .get('users')
+    .find({ id: id })
+    .assign({ firstName, lastName, name, login, role })
+    .write();
+
+  const updatedUser = router.db.get('users').find({ id: id }).value();
+
+  res.status(200).jsonp(updatedUser);
+});
+
 // PORT LISTENER
 
 server.use(router);

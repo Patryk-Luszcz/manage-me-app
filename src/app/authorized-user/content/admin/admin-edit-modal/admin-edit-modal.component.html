@@ -1,1 +1,34 @@
-<p>admin-edit-modal works!</p>
+<shared-modal [modalTitle]="modalData.title" (confirm)="saveUser()">
+  <form class="wrapper" [formGroup]="userForm">
+    <div class="firstColumn">
+      <mat-form-field class="field">
+        <mat-label>First Name</mat-label>
+        <input type="text" matInput formControlName="firstName" />
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Last Name</mat-label>
+        <input matInput formControlName="lastName" />
+      </mat-form-field>
+    </div>
+    <div class="secondColumn">
+      <mat-form-field class="field">
+        <mat-label>Role</mat-label>
+        <mat-select formControlName="role">
+          <mat-option *ngFor="let role of userRoles" [value]="role.name"
+            >{{ role.name | titlecase }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Login</mat-label>
+        <input type="text" matInput formControlName="login" />
+      </mat-form-field>
+    </div>
+    <div *ngIf="modalData.isNewUser" class="thirdColumn">
+      <mat-form-field class="field">
+        <mat-label>Password</mat-label>
+        <input type="password" matInput required formControlName="password" />
+      </mat-form-field>
+    </div>
+  </form>
+</shared-modal>

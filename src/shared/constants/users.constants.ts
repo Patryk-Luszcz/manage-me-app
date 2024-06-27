@@ -1,16 +1,39 @@
-export abstract class UsersRolesConstants {
+import { TableConfig } from '../components/table/table.component';
+import { User } from '../interfaces/user.interface';
+
+export abstract class UsersConstants {
   static usersRoles = [
     {
       id: 1,
-      roleName: 'developer',
+      name: 'developer',
     },
     {
       id: 2,
-      roleName: 'admin',
+      name: 'admin',
     },
     {
       id: 3,
-      roleName: 'devops',
+      name: 'devops',
+    },
+  ];
+
+  static userTableConfig: TableConfig<User>[] = [
+    {
+      title: 'First Name',
+      modelProp: 'firstName',
+    },
+    {
+      title: 'Last Name',
+      modelProp: 'lastName',
+    },
+    {
+      title: 'Login',
+      modelProp: 'login',
+    },
+    {
+      title: 'Role',
+      modelProp: 'role',
+      computeValue: ({ role }) => role.name,
     },
   ];
 }

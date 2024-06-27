@@ -1,0 +1,23 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 100%;
+  margin-top: 20px;
+}
+
+.table {
+  border-radius: 10px;
+}
+
+.firstColumn,
+.secondColumn,
+.thirdColumn {
+  display: flex;
+  justify-content: center;
+}
+
+mat-form-field {
+  margin: 15px;
+  width: 100%;
+}
