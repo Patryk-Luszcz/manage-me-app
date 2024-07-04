@@ -1,1 +1,18 @@
-<shared-modal [modalTitle]="modalData.title" [isFooterVisible]="false"> </shared-modal>
+<shared-modal [modalTitle]="modalData.title" [isFooterVisible]="false">
+  <div class="task-details">
+    <ul>
+      <li>
+        <span class="label">Name:</span>
+        <span class="value">{{ modalData.project.name }}</span>
+      </li>
+      <li>
+        <span class="label">Description:</span>
+        <span class="value">{{ modalData.project.description }}</span>
+      </li>
+      <li>
+        <span class="label">Active:</span>
+        <span class="value">{{ modalData.project.active }}</span>
+      </li>
+    </ul>
+  </div>
+</shared-modal>
