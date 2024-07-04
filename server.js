@@ -101,9 +101,20 @@ server.post('/projects', (req, res) => {
 });
 
 server.put('/projects', (req, res) => {
-  const { id, name, description } = req.body;
+  const { id, name, description, active } = req.body;
 
-  router.db.get('projects').find({ id: id }).assign({ name, description }).write();
+  const projects = router.db.get('projects').value();
+
+  projects.forEach((project) => {
+    if (project.id !== id) {
+      project.active = false;
+    } else {
+      project.active = active;
+    }
+  });
+
+  router.db.set('projects', projects).write();
+  router.db.get('projects').find({ id: id }).assign({ name, description, active }).write();
 
   const updatedProject = router.db.get('projects').find({ id: id }).value();
 
@@ -155,6 +166,133 @@ server.put('/functionalities', (req, res) => {
   res.status(200).jsonp(updatedFunctionality);
 });
 
+// TASKS
+
+server.post('/task', (req, res) => {
+  const form = req.body;
+  const functionalities = router.db.get('functionalities').value();
+  const functionality = functionalities.find(({ name }) => name === form.taskBelongToFunctionality);
+
+  if (functionality) {
+    if (!functionality.tasks) {
+      functionality.tasks = [];
+    }
+
+    const taskId = functionality.tasks.length + 1;
+
+    const currentTime = new Date();
+
+    const timeString = currentTime.toTimeString().slice(0, 5);
+    const dateString = currentTime.toLocaleDateString('en-GB');
+
+    const newTask = {
+      id: taskId,
+      functionalityId: functionality.id,
+      dateAdded: `${dateString} ${timeString}`,
+      dateStart: '',
+      dateEnd: '',
+      ...form,
+    };
+
+    if (form.state === 'doing') {
+      newTask.dateStart = `${dateString} ${timeString}`;
+    }
+
+    if (form.state === 'done') {
+      newTask.dateStart = `${dateString} ${timeString}`;
+      newTask.dateEnd = `${dateString} ${timeString}`;
+    }
+
+    functionality.tasks.push(newTask);
+
+    router.db.get('functionalities').find({ id: functionality.id }).assign(functionality).write();
+
+    res.status(200).jsonp(newTask);
+  } else {
+    res.status(404).json({ error: 'Functionality not found' });
+  }
+});
+
+server.put('/task', (req, res) => {
+  const functionalityId = req.body.functionalityId;
+  const taskId = req.body.id;
+  const updatedTask = req.body;
+
+  const functionalities = router.db.get('functionalities');
+  const functionality = functionalities.find({ id: functionalityId }).value();
+
+  if (!functionality) {
+    res.status(404).json({ error: 'Functionality not found' });
+    return;
+  }
+
+  const tasks = functionality.tasks;
+  const taskIndex = tasks.findIndex(({ id }) => id === taskId);
+
+  if (taskIndex === -1) {
+    res.status(404).json({ error: 'Task not found' });
+    return;
+  }
+
+  tasks[taskIndex] = updatedTask;
+  router.db.get('functionalities').find({ id: functionalityId }).assign({ tasks: tasks }).write();
+
+  res.status(200).json({ message: 'Task updated successfully' });
+});
+
+server.put('/task/state', (req, res) => {
+  const functionalityId = req.body.functionalityId;
+  const taskId = req.body.id;
+  const taskState = req.body.state;
+
+  const functionalities = router.db.get('functionalities');
+  const functionality = functionalities.find({ id: functionalityId }).value();
+
+  if (!functionality) {
+    res.status(404).send('Functionality not found');
+    return;
+  }
+
+  const task = functionality.tasks.find((task) => task.id === taskId);
+  if (!task) {
+    res.status(404).send('Task not found');
+    return;
+  }
+
+  const taskIndex = functionality.tasks.findIndex(({ id }) => id === taskId);
+
+  if (taskState === 'todo') {
+    task.dateStart = '';
+    task.dateEnd = '';
+  }
+
+  if (taskState === 'doing') {
+    const currentTime = new Date();
+
+    const timeString = currentTime.toTimeString().slice(0, 5);
+    const dateString = currentTime.toLocaleDateString('en-GB');
+
+    task.dateStart = `${dateString} ${timeString}`;
+    task.dateEnd = '';
+  }
+
+  if (taskState === 'done') {
+    const currentTime = new Date();
+
+    const timeString = currentTime.toTimeString().slice(0, 5);
+    const dateString = currentTime.toLocaleDateString('en-GB');
+
+    task.dateEnd = `${dateString} ${timeString}`;
+  }
+
+  task.state = taskState;
+
+  functionality.tasks[taskIndex] = task;
+  functionalities.find({ id: functionalityId }).assign({ tasks: functionality.tasks }).write();
+
+  res.status(200).json(task);
+});
+
 // ADMIN PANEL
 
 server.get('/users', (_, res) => {
@@ -179,6 +317,24 @@ server.put('/users', (req, res) => {
   const updatedUser = router.db.get('users').find({ id: id }).value();
 
   res.status(200).jsonp(updatedUser);
+});
+
+// NOTIFACATIONS
+
+server.post('/notifications', (req, res) => {
+  const newNotifacation = req.body;
+
+  const notificationsDB = router.db.get('notifications');
+
+  notificationsDB.push(newNotifacation).write();
+
+  res.status(200).jsonp();
+});
+
+server.post('/notifications/clear', (req, res) => {
+  router.db.set('notifications', []).write();
+
+  res.status(200).jsonp([]);
 });
 
 // PORT LISTENER
