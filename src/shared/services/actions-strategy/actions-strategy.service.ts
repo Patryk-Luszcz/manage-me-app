@@ -6,7 +6,8 @@ import { FunctionalitiesViewModalComponent } from '../../../app/authorized-user/
 import { ConfirmationModalComponent } from '../../components/modals/confirmation-modal/confirmation-modal.component';
 import { AdminEditModalComponent } from '../../../app/authorized-user/content/admin/admin-edit-modal/admin-edit-modal.component';
 import { AdminViewModalComponent } from '../../../app/authorized-user/content/admin/admin-view-modal/admin-view-modal.component';
-
+import { TasksEditModalComponent } from '../../../app/authorized-user/content/tasks/tasks-edit-modal/tasks-edit-modal.component';
+import { TasksInfoModalComponent } from '../../../app/authorized-user/content/tasks/tasks-info-modal/tasks-info-modal.component';
 @Injectable({
   providedIn: 'root',
 })
@@ -22,6 +23,9 @@ export class ActionsStrategyService {
       ADD_USER: AdminEditModalComponent,
       EDIT_USER: AdminEditModalComponent,
       INFO_USER: AdminViewModalComponent,
+      ADD_TASK: TasksEditModalComponent,
+      EDIT_TASK: TasksEditModalComponent,
+      INFO_TASK: TasksInfoModalComponent,
     };
 
     return services[operationType] ?? ConfirmationModalComponent;
