@@ -1,1 +1,26 @@
-<shared-modal [modalTitle]="modalData.title" [isFooterVisible]="false"> </shared-modal>
+<shared-modal [modalTitle]="modalData.title" [isFooterVisible]="false">
+  <div class="task-details">
+    <ul>
+      <li>
+        <span class="label">Name:</span>
+        <span class="value">{{ modalData.functionality.name }}</span>
+      </li>
+      <li>
+        <span class="label">Description:</span>
+        <span class="value">{{ modalData.functionality.description }}</span>
+      </li>
+      <li>
+        <span class="label">Priority:</span>
+        <span class="value">{{ modalData.functionality.priority }}</span>
+      </li>
+      <li>
+        <span class="label">Owner:</span>
+        <span class="value">{{ modalData.functionality.owner }}</span>
+      </li>
+      <li>
+        <span class="label">Status:</span>
+        <span class="value">{{ modalData.functionality.status }}</span>
+      </li>
+    </ul>
+  </div>
+</shared-modal>
