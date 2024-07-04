@@ -64,16 +64,12 @@ export class ProjectsComponent {
         });
       } else if (action === 'ADD_PROJECT') {
         this._projectService.createProject(payload).subscribe({
-          next: () => {
-            this.projects$ = this._projectService.getProjects();
-          },
+          next: () => (this.projects$ = this._projectService.getProjects()),
           error: (error) => alert(error.message),
         });
       } else {
         this._projectService.updateProject(payload).subscribe({
-          next: () => {
-            this.projects$ = this._projectService.getProjects();
-          },
+          next: () => (this.projects$ = this._projectService.getProjects()),
           error: (error) => alert(error.message),
         });
       }
