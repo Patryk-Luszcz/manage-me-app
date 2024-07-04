@@ -16,9 +16,33 @@
       <li class="nav__tabs--link" [routerLink]="['/authorized-user/admin']">
         <a>Admin Panel</a>
       </li>
-      <a *ngIf="authorizationToken" [routerLink]="['/login']" (click)="signOut()"
-        ><button class="nav__tabs--button">Sign Out</button></a
-      >
+      <li class="nav__tabs--link" (click)="openNotificationModal()">
+        <a>
+          <button
+            matBadge="{{ notifications.length }}"
+            mat-mini-fab
+            class="notifactions-button"
+            matTooltip="Basket"
+            matBadgeSize="medium"
+          >
+            <img
+              class="notifactions-icon"
+              src="/icons/notifications.svg"
+              width="18"
+              height="18"
+              alt="Notifactions"
+            /></button
+        ></a>
+      </li>
+      <li class="nav__tabs--link">
+        <a
+          *ngIf="authorizationToken"
+          class="nav__tabs--button"
+          [routerLink]="['/login']"
+          (click)="signOut()"
+          >Sign Out</a
+        >
+      </li>
     </ul>
   </nav>
 </header>

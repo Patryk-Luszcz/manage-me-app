@@ -19,6 +19,7 @@ export interface TableConfig<T extends Record<any, any>> {
 export class TableComponent<T extends { id: string }> {
   tableData = input.required<T[]>();
   tableConfig = input.required<TableConfig<T>[]>();
+  isActionColumnVisible = input(true);
 
   emitEvent = output<{ actionType: string; item: T }>();
 

@@ -3,8 +3,9 @@
     <th>No.</th>
     @for(item of tableConfig();track $index){
     <th>{{ item.title }}</th>
-    }
+    } @if(isActionColumnVisible()){
     <th>Actions</th>
+    }
   </thead>
   <tbody>
     @for(row of tableData(); track row.id; let index = $index){
@@ -18,7 +19,7 @@
         {{ row[item.modelProp] }}
         }
       </td>
-      }
+      } @if(isActionColumnVisible()){
       <td>
         @for(action of actionsConfig; track $index){
         <button class="btn" [matTooltip]="action.tooltip" (click)="handleClick(action.type, row)">
@@ -26,6 +27,7 @@
         </button>
         }
       </td>
+      }
     </tr>
     }
   </tbody>
