@@ -1,154 +1,188 @@
 <div class="wrapper">
-  <div class="icon-wrapper"></div>
-  <div class="kanban-board">
-    <div
-      id="todo"
-      class="kanban-column"
-      cdkDropList
-      [cdkDropListData]="todoTasks"
-      (cdkDropListDropped)="onCardDrop($event)"
-      [cdkDropListConnectedTo]="['doing', 'done']"
-    >
-      <span class="kanban-column-header" style="color: red">To Do</span>
-      <div class="kanban-card" *ngFor="let task of todoTasks" cdkDrag>
-        <div class="kanban-card__info">
-          <p
-            [class.red-alert]="isAlertState(task) === 'RED'"
-            [class.orange-alert]="isAlertState(task) === 'ORANGE'"
-            [class.green-alert]="isAlertState(task) === 'GREEN'"
-            class="kanban-card__info--state"
-          >
-            {{ task.state | capitalLetterFirst }}
-          </p>
-          <p
-            [class.red-alert]="isAlertPriority(task) === 'RED'"
-            [class.orange-alert]="isAlertPriority(task) === 'ORANGE'"
-            [class.green-alert]="isAlertPriority(task) === 'GREEN'"
-            class="kanban-card__info--state"
-          >
-            {{ task.priority | capitalLetterFirst }}
-          </p>
-          <div class="actions-icon">
-            <button class="btn-actions-icon" matTooltip="Edit Task" (click)="editTask(task)">
-              <img src="../../../assets/icons/edit.svg" />
-            </button>
-            <button
-              class="btn-actions-icon"
-              matTooltip="More Info"
-              (click)="openMoreInfoTask(task)"
+  <div class="container">
+    <div class="project-title">
+      <p>
+        Current Project: <span>{{ activeProject()?.name }}</span>
+      </p>
+      <button
+        class="add-icon"
+        matTooltip="Add New Task"
+        (click)="handleOperationType({ actionType: 'ADD' })"
+      >
+        <img src="/icons/add.svg" alt="add task" />
+      </button>
+    </div>
+    <div class="kanban-board">
+      <div
+        id="todo"
+        class="kanban-column"
+        cdkDropList
+        [cdkDropListData]="todoTasks"
+        (cdkDropListDropped)="onCardDrop($event)"
+        [cdkDropListConnectedTo]="['doing', 'done']"
+      >
+        <span class="kanban-column-header" style="color: red">To Do</span>
+        <div class="kanban-card" *ngFor="let task of todoTasks" cdkDrag>
+          <div class="kanban-card__info">
+            <p
+              [class.red-alert]="isAlertState(task.state) === 'RED'"
+              [class.orange-alert]="isAlertState(task.state) === 'ORANGE'"
+              [class.green-alert]="isAlertState(task.state) === 'GREEN'"
+              class="kanban-card__info--state"
             >
-              <img src="../../../../assets/icons/info_black_24dp.svg" />
-            </button>
+              {{ task.state | titlecase }}
+            </p>
+            <p
+              [class.red-alert]="isAlertPriority(task.priority) === 'RED'"
+              [class.orange-alert]="isAlertPriority(task.priority) === 'ORANGE'"
+              [class.green-alert]="isAlertPriority(task.priority) === 'GREEN'"
+              class="kanban-card__info--state"
+            >
+              {{ task.priority | titlecase }}
+            </p>
+            <div class="actions-icon">
+              <button
+                class="btn-actions-icon"
+                matTooltip="Edit Task"
+                (click)="handleOperationType({ actionType: 'EDIT', item: task })"
+              >
+                <img src="/icons/edit.svg" />
+              </button>
+              <button
+                class="btn-actions-icon"
+                matTooltip="More Info"
+                (click)="handleOperationType({ actionType: 'INFO', item: task })"
+              >
+                <img src="/icons/info.svg" />
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="kanban-card__title">{{ task.name }}</div>
-        <div class="user-icon">
-          <img
-            *ngFor="let user of task.userResponsibleForTask"
-            [matTooltip]="user"
-            src="../../../../assets/icons/account_user.svg"
-          />
+          <div class="kanban-card__title">{{ task.name }}</div>
+          <div class="user-icon">
+            <span>Predicted Time: {{ task.predictedExecutionTime }}</span>
+            <div>
+              <img
+                *ngFor="let user of task.assignedUsers"
+                [matTooltip]="user"
+                src="/icons/user.svg"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div
-      id="doing"
-      class="kanban-column"
-      cdkDropList
-      [cdkDropListData]="inProgressTasks"
-      (cdkDropListDropped)="onCardDrop($event)"
-      [cdkDropListConnectedTo]="['todo', 'done']"
-    >
-      <div class="kanban-column-header" style="color: orange">In Progress</div>
-      <div class="kanban-card" *ngFor="let task of inProgressTasks" cdkDrag>
-        <div class="kanban-card__info">
-          <p
-            [class.red-alert]="isAlertState(task) === 'RED'"
-            [class.orange-alert]="isAlertState(task) === 'ORANGE'"
-            [class.green-alert]="isAlertState(task) === 'GREEN'"
-            class="kanban-card__info--state"
-          >
-            {{ task.state | capitalLetterFirst }}
-          </p>
-          <p
-            [class.red-alert]="isAlertPriority(task) === 'RED'"
-            [class.orange-alert]="isAlertPriority(task) === 'ORANGE'"
-            [class.green-alert]="isAlertPriority(task) === 'GREEN'"
-            class="kanban-card__info--state"
-          >
-            {{ task.priority | capitalLetterFirst }}
-          </p>
-          <div class="actions-icon">
-            <button class="btn-actions-icon" matTooltip="Edit Task" (click)="editTask(task)">
-              <img src="../../../assets/icons/edit.svg" />
-            </button>
-            <button
-              class="btn-actions-icon"
-              matTooltip="More Info"
-              (click)="openMoreInfoTask(task)"
+      <div
+        id="doing"
+        class="kanban-column"
+        cdkDropList
+        [cdkDropListData]="inProgressTasks"
+        (cdkDropListDropped)="onCardDrop($event)"
+        [cdkDropListConnectedTo]="['todo', 'done']"
+      >
+        <div class="kanban-column-header" style="color: orange">In Progress</div>
+        <div class="kanban-card" *ngFor="let task of inProgressTasks" cdkDrag>
+          <div class="kanban-card__info">
+            <p
+              [class.red-alert]="isAlertState(task.state) === 'RED'"
+              [class.orange-alert]="isAlertState(task.state) === 'ORANGE'"
+              [class.green-alert]="isAlertState(task.state) === 'GREEN'"
+              class="kanban-card__info--state"
             >
-              <img src="../../../../assets/icons/info_black_24dp.svg" />
-            </button>
+              {{ task.state | titlecase }}
+            </p>
+            <p
+              [class.red-alert]="isAlertPriority(task.priority) === 'RED'"
+              [class.orange-alert]="isAlertPriority(task.priority) === 'ORANGE'"
+              [class.green-alert]="isAlertPriority(task.priority) === 'GREEN'"
+              class="kanban-card__info--state"
+            >
+              {{ task.priority | titlecase }}
+            </p>
+            <div class="actions-icon">
+              <button
+                class="btn-actions-icon"
+                matTooltip="Edit Task"
+                (click)="handleOperationType({ actionType: 'EDIT', item: task })"
+              >
+                <img src="/icons/edit.svg" />
+              </button>
+              <button
+                class="btn-actions-icon"
+                matTooltip="More Info"
+                (click)="handleOperationType({ actionType: 'INFO', item: task })"
+              >
+                <img src="/icons/info.svg" />
+              </button>
+            </div>
           </div>
-        </div>
-        <div class="kanban-card__title">{{ task.name }}</div>
-        <div class="user-icon">
-          <img
-            *ngFor="let user of task.userResponsibleForTask"
-            [matTooltip]="user"
-            src="../../../../assets/icons/account_user.svg"
-          />
+          <div class="kanban-card__title">{{ task.name }}</div>
+          <div class="user-icon">
+            <span>Predicted Time: {{ task.predictedExecutionTime }}</span>
+            <div>
+              <img
+                *ngFor="let user of task.assignedUsers"
+                [matTooltip]="user"
+                src="/icons/user.svg"
+              />
+            </div>
+          </div>
         </div>
       </div>
-    </div>
-    <div
-      id="done"
-      class="kanban-column"
-      cdkDropList
-      [cdkDropListData]="doneTasks"
-      (cdkDropListDropped)="onCardDrop($event)"
-      [cdkDropListConnectedTo]="['doing', 'todo']"
-    >
-      <div class="kanban-column-header" style="color: green">Done</div>
-      <div class="kanban-card" *ngFor="let task of doneTasks" cdkDrag>
-        <div class="kanban-card__info">
-          <p
-            [class.red-alert]="isAlertState(task) === 'RED'"
-            [class.orange-alert]="isAlertState(task) === 'ORANGE'"
-            [class.green-alert]="isAlertState(task) === 'GREEN'"
-            class="kanban-card__info--state"
-          >
-            {{ task.state | capitalLetterFirst }}
-          </p>
-          <p
-            [class.red-alert]="isAlertPriority(task) === 'RED'"
-            [class.orange-alert]="isAlertPriority(task) === 'ORANGE'"
-            [class.green-alert]="isAlertPriority(task) === 'GREEN'"
-            class="kanban-card__info--state"
-          >
-            {{ task.priority | capitalLetterFirst }}
-          </p>
-          <div class="actions-icon">
-            <button class="btn-actions-icon" matTooltip="Edit Task" (click)="editTask(task)">
-              <img src="../../../assets/icons/edit.svg" />
-            </button>
-            <button
-              class="btn-actions-icon"
-              matTooltip="More Info"
-              (click)="openMoreInfoTask(task)"
+      <div
+        id="done"
+        class="kanban-column"
+        cdkDropList
+        [cdkDropListData]="doneTasks"
+        (cdkDropListDropped)="onCardDrop($event)"
+        [cdkDropListConnectedTo]="['doing', 'todo']"
+      >
+        <div class="kanban-column-header" style="color: green">Done</div>
+        <div class="kanban-card" *ngFor="let task of doneTasks" cdkDrag>
+          <div class="kanban-card__info">
+            <p
+              [class.red-alert]="isAlertState(task.state) === 'RED'"
+              [class.orange-alert]="isAlertState(task.state) === 'ORANGE'"
+              [class.green-alert]="isAlertState(task.state) === 'GREEN'"
+              class="kanban-card__info--state"
             >
-              <img src="../../../../assets/icons/info_black_24dp.svg" />
-            </button>
+              {{ task.state | titlecase }}
+            </p>
+            <p
+              [class.red-alert]="isAlertPriority(task.priority) === 'RED'"
+              [class.orange-alert]="isAlertPriority(task.priority) === 'ORANGE'"
+              [class.green-alert]="isAlertPriority(task.priority) === 'GREEN'"
+              class="kanban-card__info--state"
+            >
+              {{ task.priority | titlecase }}
+            </p>
+            <div class="actions-icon">
+              <button
+                class="btn-actions-icon"
+                matTooltip="Edit Task"
+                (click)="handleOperationType({ actionType: 'EDIT', item: task })"
+              >
+                <img src="/icons/edit.svg" />
+              </button>
+              <button
+                class="btn-actions-icon"
+                matTooltip="More Info"
+                (click)="handleOperationType({ actionType: 'INFO', item: task })"
+              >
+                <img src="/icons/info.svg" />
+              </button>
+            </div>
           </div>
-        </div>
 
-        <div class="kanban-card__title">{{ task.name }}</div>
-        <div class="user-icon">
-          <img
-            *ngFor="let user of task.userResponsibleForTask"
-            [matTooltip]="user"
-            src="../../../../assets/icons/account_user.svg"
-          />
+          <div class="kanban-card__title">{{ task.name }}</div>
+          <div class="user-icon">
+            <span>Predicted Time: {{ task.predictedExecutionTime }}</span>
+            <div>
+              <img
+                *ngFor="let user of task.assignedUsers"
+                [matTooltip]="user"
+                src="/icons/user.svg"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
