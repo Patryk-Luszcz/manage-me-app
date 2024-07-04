@@ -1,0 +1,43 @@
+<shared-modal [modalTitle]="modalData.title" [isFooterVisible]="false">
+  <div class="task-details">
+    <ul>
+      <li>
+        <span class="label">Name:</span>
+        <span class="value">{{ modalData.task.name }}</span>
+      </li>
+      <li>
+        <span class="label">Functionality:</span>
+        <span class="value">{{ modalData.task.taskBelongToFunctionality }}</span>
+      </li>
+      <li>
+        <span class="label">Description:</span>
+        <span class="value">{{ modalData.task.description }}</span>
+      </li>
+      <li>
+        <span class="label">Priority:</span>
+        <span class="value">{{ modalData.task.priority }}</span>
+      </li>
+      <li>
+        <span class="label">State:</span>
+        <span class="value">{{ modalData.task.state }}</span>
+      </li>
+      <li>
+        <span class="label">Date Added:</span>
+        <span class="value">{{ modalData.task.dateAdded }}</span>
+      </li>
+      <li>
+        <span class="label">Date Started:</span>
+        <span class="value">{{ modalData.task.dateStart || '-' }}</span>
+      </li>
+      <li>
+        <span class="label">Date Ended:</span>
+        <span class="value">{{ modalData.task.dateEnd || '-' }}</span>
+      </li>
+      <li>
+        <span class="label">Assigned Users:</span>
+
+        <span class="value">{{ modalData.task.assignedUsers.join(', ') }}</span>
+      </li>
+    </ul>
+  </div>
+</shared-modal>
