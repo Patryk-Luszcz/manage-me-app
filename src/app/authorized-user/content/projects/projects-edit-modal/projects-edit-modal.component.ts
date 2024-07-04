@@ -1,4 +1,4 @@
-import { Component, OnInit, inject } from '@angular/core';
+import { Component, OnInit, inject, signal } from '@angular/core';
 import { ModalComponent } from '../../../../../shared/components/modals/modal/modal.component';
 import { MatInputModule } from '@angular/material/input';
 import { MatLabel } from '@angular/material/form-field';
@@ -6,11 +6,12 @@ import { FormBuilder, Validators } from '@angular/forms';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog';
 import { Project } from '../../../../../shared/interfaces/project.interface';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 @Component({
   selector: 'app-projects-edit-modal',
   standalone: true,
-  imports: [ModalComponent, MatInputModule, MatLabel, ReactiveFormsModule],
+  imports: [ModalComponent, MatInputModule, MatLabel, ReactiveFormsModule, MatCheckboxModule],
   templateUrl: './projects-edit-modal.component.html',
   styleUrl: './projects-edit-modal.component.scss',
 })
@@ -23,6 +24,7 @@ export class ProjectsEditModalComponent implements OnInit {
   projectForm = this._formBuilder.nonNullable.group({
     name: ['', Validators.required],
     description: ['', Validators.required],
+    active: [false],
   });
 
   public ngOnInit() {
@@ -35,6 +37,7 @@ export class ProjectsEditModalComponent implements OnInit {
     this.projectForm.patchValue({
       name: project.name,
       description: project.description,
+      active: project.active,
     });
   }
 
@@ -45,11 +48,8 @@ export class ProjectsEditModalComponent implements OnInit {
       ...this.projectForm.getRawValue(),
     };
 
-    console.log(this.modalData.project);
-
     if (this.modalData.project) {
       payload.id = this.modalData.project.id;
-      payload.active = this.modalData.project.active;
     }
 
     this._modalRef.close(payload);

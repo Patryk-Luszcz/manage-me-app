@@ -8,5 +8,9 @@
       <mat-label>Project Description</mat-label>
       <textarea matInput formControlName="description" placeholder="Description"></textarea>
     </mat-form-field>
+    <div class="active">
+      <mat-label>Is Active</mat-label>
+      <mat-checkbox formControlName="active" [checked]="modalData?.project?.active"></mat-checkbox>
+    </div>
   </form>
 </shared-modal>
