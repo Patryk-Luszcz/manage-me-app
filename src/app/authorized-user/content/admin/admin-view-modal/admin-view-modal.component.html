@@ -1,1 +1,22 @@
-<p>admin-view-modal works!</p>
+<shared-modal [modalTitle]="modalData.title" [isFooterVisible]="false">
+  <div class="task-details">
+    <ul>
+      <li>
+        <span class="label">First Name:</span>
+        <span class="value">{{ modalData.user.firstName }}</span>
+      </li>
+      <li>
+        <span class="label">Last Name:</span>
+        <span class="value">{{ modalData.user.lastName }}</span>
+      </li>
+      <li>
+        <span class="label">Login:</span>
+        <span class="value">{{ modalData.user.login }}</span>
+      </li>
+      <li>
+        <span class="label">Role:</span>
+        <span class="value">{{ modalData.user.role.name }}</span>
+      </li>
+    </ul>
+  </div>
+</shared-modal>
