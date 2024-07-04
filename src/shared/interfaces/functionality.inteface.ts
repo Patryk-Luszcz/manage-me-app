@@ -1,3 +1,5 @@
+import { Task } from './task.interface';
+
 export interface Functionality {
   id: number;
   projectId: number;
@@ -7,5 +9,5 @@ export interface Functionality {
   project: string;
   owner: string;
   status: string;
-  tasks: any[];
+  tasks: Task[];
 }
