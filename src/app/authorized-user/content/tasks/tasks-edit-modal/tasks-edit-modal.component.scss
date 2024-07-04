@@ -1,0 +1,80 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.text-center {
+  padding: 20px;
+  text-align: center;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 100px;
+  width: 100%;
+}
+
+.field {
+  margin: 15px;
+  width: 100%;
+}
+
+.first-column,
+.second-column {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 98%;
+}
+
+.fourth-column {
+  width: 100%;
+}
+
+.btn1,
+.btn2 {
+  width: 120px;
+  padding: 10px 15px;
+  font-size: 15px;
+  margin-top: 20px;
+  color: #ffffff;
+  font-weight: 600;
+  border: none;
+  border-radius: 50px;
+  transition: all 0.3s ease 0s;
+  cursor: pointer;
+}
+
+.btn1 {
+  background-color: #ff0000;
+
+  &:hover {
+    background-color: #cf0606;
+  }
+}
+
+.btn2 {
+  color: black;
+
+  &:hover {
+    background-color: #008000;
+    color: #ffffff;
+  }
+}
+
+.datepicker-btn {
+  padding: 5px 10px;
+  margin: 0 5px;
+  border-radius: 10px;
+
+  cursor: pointer;
+}
+
+.cancel {
+  background-color: red;
+}
+
+.apply {
+  background-color: greenyellow;
+}

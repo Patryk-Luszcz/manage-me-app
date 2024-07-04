@@ -1,0 +1,64 @@
+<shared-modal [modalTitle]="modalData.title" (confirm)="saveTask()">
+  <form class="wrapper" [formGroup]="taskForm">
+    <div class="first-column">
+      <mat-form-field class="field">
+        <mat-label>Task Name</mat-label>
+        <input type="text" matInput formControlName="name" />
+      </mat-form-field>
+    </div>
+    <div class="second-column">
+      <mat-form-field class="field">
+        <mat-label>Assign Functionality</mat-label>
+        <mat-select formControlName="taskBelongToFunctionality">
+          @for(functionality of modalData.functionalities; track functionality.id){
+          <mat-option [value]="functionality.name">{{ functionality.name }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Assign User</mat-label>
+        <mat-select formControlName="assignedUsers" multiple>
+          @for(user of users$ | async; track user.id){
+          <mat-option [value]="user.firstName + ' ' + user.lastName">{{
+            user.firstName + ' ' + user.lastName
+          }}</mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+    </div>
+    <div class="second-column">
+      <mat-form-field class="field">
+        <mat-label>Task State</mat-label>
+        <mat-select formControlName="state">
+          @for(status of statuses; track status.id){
+          <mat-option [value]="status.value">{{ status.value | titlecase }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="field">
+        <mat-label>Priority</mat-label>
+        <mat-select formControlName="priority">
+          @for(priority of priorities; track priority.id){
+          <mat-option [value]="priority.value">{{ priority.value | titlecase }} </mat-option>
+          }
+        </mat-select>
+      </mat-form-field>
+      <mat-form-field class="field">
+        <mat-label>Predicted Time</mat-label>
+        <input type="text" matInput formControlName="predictedExecutionTime" />
+      </mat-form-field>
+    </div>
+    <div class="fourth-column">
+      <mat-form-field style="width: 94%; margin: 0 20px">
+        <mat-label>Description</mat-label>
+        <textarea
+          class="textarea"
+          matInput
+          formControlName="description"
+          placeholder="Description"
+        ></textarea>
+      </mat-form-field>
+    </div>
+  </form>
+</shared-modal>
