@@ -20,13 +20,22 @@
       placeholder="Ex. pat@example.com"
       formControlName="login"
     />
-    <mat-error class="error">Login is required</mat-error>
-    <mat-error class="error"> Please enter a valid login address </mat-error>
+    <mat-error *ngIf="registrationForm.controls.login.hasError('required')" class="error"
+      >Login is required</mat-error
+    >
+    <mat-error *ngIf="registrationForm.controls.login.hasError('email')" class="error">
+      Please enter a valid login address
+    </mat-error>
   </mat-form-field>
   <mat-form-field class="field">
     <mat-label>Password</mat-label>
-    <input type="password" matInput required formControlName="password" />
-    <mat-error class="error"> New Password is required </mat-error>
+    <input type="password" minlength="6" matInput required formControlName="password" />
+    <mat-error *ngIf="registrationForm.controls.password.hasError('required')"
+      >New Password is required</mat-error
+    >
+    <mat-error *ngIf="registrationForm.controls.password.hasError('minlength')">
+      Password must be at least 6 characters long
+    </mat-error>
   </mat-form-field>
   <div class="example-button-row">
     <button mat-raised-button type="submit" color="warn" class="button">SIGN UP</button>

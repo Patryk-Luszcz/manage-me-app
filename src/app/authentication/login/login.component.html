@@ -4,14 +4,22 @@
   <mat-form-field class="field" appearance="fill">
     <mat-label>Enter your login</mat-label>
     <input type="login" matInput formControlName="login" placeholder="Ex. pat@example.com" />
-    <mat-error *ngIf="loginForm.controls['login'].hasError('required')" class="error">
+    <mat-error *ngIf="loginForm.controls.login.hasError('required')" class="error"
+      >Login is required</mat-error
+    >
+    <mat-error *ngIf="loginForm.controls.login.hasError('email')" class="error">
       Please enter a valid login address
     </mat-error>
   </mat-form-field>
   <mat-form-field class="field" appearance="fill">
     <mat-label>Enter your password</mat-label>
-    <input matInput formControlName="password" />
-    <mat-error class="error"> Password should be min. 6 characters long </mat-error>
+    <input type="password" minlength="6" matInput formControlName="password" />
+    <mat-error *ngIf="loginForm.controls.password.hasError('required')"
+      >New Password is required</mat-error
+    >
+    <mat-error *ngIf="loginForm.controls.password.hasError('minlength')">
+      Password must be at least 6 characters long
+    </mat-error>
   </mat-form-field>
   <a class="create" [routerLink]="'/registration'"> Sign up here!</a>
   <div class="example-button-row">

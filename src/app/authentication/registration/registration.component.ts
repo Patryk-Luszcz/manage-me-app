@@ -28,6 +28,8 @@ export class RegistrationComponent {
   public registration() {
     if (this.registrationForm.valid) {
       this.signUp.emit({ form: this.registrationForm.getRawValue(), endpointUrl: 'register' });
+    } else {
+      alert('Register validation failed');
     }
   }
 }

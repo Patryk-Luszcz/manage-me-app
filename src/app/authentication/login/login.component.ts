@@ -17,7 +17,7 @@ export class LoginComponent {
   signIn = output<any>();
 
   loginForm = this._formBuilder.nonNullable.group({
-    login: ['', Validators.required],
+    login: ['', [Validators.required, Validators.email]],
     password: ['', Validators.required],
   });
 
@@ -26,6 +26,8 @@ export class LoginComponent {
   public login() {
     if (this.loginForm.valid) {
       this.signIn.emit({ form: this.loginForm.getRawValue(), endpointUrl: 'login' });
+    } else {
+      alert('Login validation failed');
     }
   }
 }
