@@ -85,7 +85,11 @@ export class TasksComponent implements OnInit {
       currentTask.state = 'todo';
     }
 
-    this._taskService.updateTaskState(currentTask.functionalityId, currentTask).subscribe();
+    this._taskService.updateTaskState(currentTask.functionalityId, currentTask).subscribe({
+      next: () => this._getFunctionalities(),
+      error: () => alert('Error'),
+    });
+
     transferArrayItem(previousContainer.data, container.data, previousIndex, currentIndex);
   }
 
@@ -112,7 +116,7 @@ export class TasksComponent implements OnInit {
       .filter((task: Task) => task.state === state);
   }
 
-  public handleOperationType({ actionType, item }: { actionType: string; item?: any }) {
+  public handleOperationType({ actionType, item }: { actionType: string; item?: Task }) {
     const action = `${actionType}_TASK`;
     const component = this._actionsStrategyService.actionStrategyHandler(action);
 
@@ -130,7 +134,7 @@ export class TasksComponent implements OnInit {
       if (!payload) return;
 
       if (action === 'DELETE_TASK') {
-        this._taskService.deleteTask(item.id).subscribe({
+        this._taskService.deleteTask(item!.id, item!.functionalityId).subscribe({
           next: () => this._getFunctionalities(),
           error: (error) => alert(error.message),
         });

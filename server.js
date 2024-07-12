@@ -58,7 +58,7 @@ server.post('/users/register', (req, res) => {
   };
   users.push(userWithId).write();
 
-  res.status(201).json(userWithId);
+  res.status(200).json(userWithId);
 });
 
 // PROJECTS
@@ -135,12 +135,18 @@ server.post('/functionalities', (req, res) => {
   const lastFunctionality = functionalities.value()[functionalities.size() - 1];
   const newId = lastFunctionality ? lastFunctionality.id + 1 : 1;
 
+  const currentTime = new Date();
+
+  const timeString = currentTime.toTimeString().slice(0, 5);
+  const dateString = currentTime.toLocaleDateString('en-GB');
+
   const newFunctionality = {
     id: newId,
     projectId,
     name,
     description,
     status,
+    dateAdded: `${dateString} ${timeString}`,
     project,
     owner,
     priority,
@@ -291,6 +297,34 @@ server.put('/task/state', (req, res) => {
   functionalities.find({ id: functionalityId }).assign({ tasks: functionality.tasks }).write();
 
   res.status(200).json(task);
+});
+
+server.delete('/task', (req, res) => {
+  const { taskId, functionalityId } = req.query;
+
+  const db = router.db;
+  const functionality = db
+    .get('functionalities')
+    .find({ id: parseInt(functionalityId) })
+    .value();
+
+  if (!functionality) {
+    return res.status(404).jsonp({ error: 'Functionality not found' });
+  }
+
+  const taskIndex = functionality.tasks.findIndex((task) => task.id === parseInt(taskId));
+  if (taskIndex === -1) {
+    return res.status(404).jsonp({ error: 'Task not found' });
+  }
+
+  functionality.tasks.splice(taskIndex, 1);
+
+  db.get('functionalities')
+    .find({ id: parseInt(functionalityId) })
+    .assign({ tasks: functionality.tasks })
+    .write();
+
+  res.status(200).jsonp({ message: 'Task deleted successfully' });
 });
 
 // ADMIN PANEL

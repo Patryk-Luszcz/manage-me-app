@@ -30,7 +30,12 @@ export class TaskService {
     return this._httpClient.put(`${this._url}/task/state`, payload);
   }
 
-  public deleteTask(taskId: number): Observable<Task> {
-    return this._httpClient.delete<Task>(`${this._url}/task/${taskId}`);
+  public deleteTask(taskId: number, functionalityId: number): Observable<Task> {
+    return this._httpClient.delete<Task>(`${this._url}/task`, {
+      params: {
+        taskId: taskId,
+        functionalityId: functionalityId,
+      },
+    });
   }
 }

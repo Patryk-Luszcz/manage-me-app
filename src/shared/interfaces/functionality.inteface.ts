@@ -7,6 +7,7 @@ export interface Functionality {
   description: string;
   priority: string;
   project: string;
+  dateAdded: string;
   owner: string;
   status: string;
   tasks: Task[];

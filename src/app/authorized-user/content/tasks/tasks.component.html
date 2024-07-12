@@ -43,6 +43,13 @@
             <div class="actions-icon">
               <button
                 class="btn-actions-icon"
+                matTooltip="Delete Task"
+                (click)="handleOperationType({ actionType: 'DELETE', item: task })"
+              >
+                <img src="/icons/delete.svg" />
+              </button>
+              <button
+                class="btn-actions-icon"
                 matTooltip="Edit Task"
                 (click)="handleOperationType({ actionType: 'EDIT', item: task })"
               >
@@ -100,6 +107,13 @@
             <div class="actions-icon">
               <button
                 class="btn-actions-icon"
+                matTooltip="Delete Task"
+                (click)="handleOperationType({ actionType: 'DELETE', item: task })"
+              >
+                <img src="/icons/delete.svg" />
+              </button>
+              <button
+                class="btn-actions-icon"
                 matTooltip="Edit Task"
                 (click)="handleOperationType({ actionType: 'EDIT', item: task })"
               >
@@ -155,6 +169,13 @@
               {{ task.priority | titlecase }}
             </p>
             <div class="actions-icon">
+              <button
+                class="btn-actions-icon"
+                matTooltip="Delete Task"
+                (click)="handleOperationType({ actionType: 'DELETE', item: task })"
+              >
+                <img src="/icons/delete.svg" />
+              </button>
               <button
                 class="btn-actions-icon"
                 matTooltip="Edit Task"
